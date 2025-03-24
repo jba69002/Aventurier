@@ -41,7 +41,7 @@ class Map
    private function test() {
       // test de l'existence du fichier
       if (!file_exists($this->str_fullname))
-         throw new Exception("Le fichier carte $str_filename n\'existe pas.");
+         throw new Exception("Le fichier carte $str_filename n'existe pas.");
    }
 
 	/*********************************************************************************
@@ -73,11 +73,11 @@ class Map
 	*********************************************************************************/
    public function getPosition($int_x, $int_y) {
 	   if (!is_int($int_x) || !is_int($int_y) || $int_x<0 || $int_y<0)
-		   throw new Exception("Les coordonnées doivent être des entiers supérieures ou égales à 0.");
+		   throw new Exception("Les coordonnées doivent être des entiers supérieurs ou égaux à 0.");
 	   if ($int_y>array_key_last($this->arr_positions))
-		   throw new Exception("L\'ordonnée $int_y est supérieure au nombre de lignes de la carte.");
+		   throw new Exception("L'ordonnée $int_y est supérieure au nombre de lignes de la carte.");
        if ($int_x>array_key_last($this->arr_positions[$int_y]))
-		   throw new Exception("L\'abcisse $int_x est supérieur au nombre d élément de la ligne $int_y.");
+		   throw new Exception("L'abcisse $int_x est supérieur au nombre d'élément de la ligne $int_y.");
 	   return $this->arr_positions[$int_y][$int_x];
    }
 }
