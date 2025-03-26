@@ -3,9 +3,11 @@
 * nom : Game
 * descriptif : Classe permettant de gérer l'enchaînement des déplacements
 *              d'un personnage sur une carte.
-* créée le 22/03/2025 par Jean-Baptiste AILLET
-* modifications :
+* créé le 22/03/2025 par Jean-Baptiste AILLET
+* modifié le 26/03/2025 par Jean-Baptiste AILLET : Typage
 *********************************************************************************/
+declare(strict_types=1);
+
 require('..\Documents\test\Map.php');
 
 class Game
@@ -13,7 +15,7 @@ class Game
 	// Carte
 	private ?Map $obj_map = null;
 	// liste des valeurs autorisées pour les déplacements
-	private $arr_authorizedValues = array('S','N','E','O');
+	private const array AUTHORIZED_VALUES = array('S','N','E','O');
 	
 	// constructeur
 	public function __construct(Map $obj_map) {
@@ -33,12 +35,12 @@ class Game
 	* créée le 22/03/2025 par Jean-Baptiste AILLET
 	* modifications :
 	*********************************************************************************/
-	public function go($arr_initialPosition, $str_movements)
+	public function go(array $arr_initialPosition, string $str_movements)
 	{
 		//Test valisité position initiale
 		if (!is_array($arr_initialPosition) || count($arr_initialPosition)<>2 || (!is_int($arr_initialPosition[0]) || !is_int($arr_initialPosition[1]) ||
 				$arr_initialPosition[0]<0 || $arr_initialPosition[1]<0)) {
-			throw new Exception("la position doit être un tableau de 2 éléments entiers supérieurs ou égale à 0.");
+			throw new Exception("la position doit être un tableau de 2 éléments entiers supérieurs ou égaux à 0.");
 		}
 		$int_x = $arr_initialPosition[0];
 		$int_y = $arr_initialPosition[1];
@@ -46,7 +48,7 @@ class Game
 		//Test validité valeurs des mouvements
 	    $str_movements = strtoupper($str_movements);
 		foreach(str_split($str_movements) as $str_movement) {
-			if (!in_array($str_movement, $this->arr_authorizedValues)) {
+			if (!in_array($str_movement, self::AUTHORIZED_VALUES)) {
 				throw new Exception("Caractère $str_movement non autorisé.");
 			}
 		}
