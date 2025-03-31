@@ -37,7 +37,7 @@ class Game
 	*********************************************************************************/
 	public function go(array $arr_initialPosition, string $str_movements)
 	{
-		//Test valisité position initiale
+		//Test validité position initiale
 		if (!is_array($arr_initialPosition) || count($arr_initialPosition)<>2 || (!is_int($arr_initialPosition[0]) || !is_int($arr_initialPosition[1]) ||
 				$arr_initialPosition[0]<0 || $arr_initialPosition[1]<0)) {
 			throw new Exception("la position doit être un tableau de 2 éléments entiers supérieurs ou égaux à 0.");

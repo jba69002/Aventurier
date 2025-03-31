@@ -1,8 +1,8 @@
 <?php
 /*********************************************************************************
-* nom : Game
-* descriptif : Classe permettant de gérer l'enchaînement des déplacements
-*              d'un personnage sur une carte.
+* nom : Map
+* descriptif : Classe permettant de gérer un déplacement
+*              du personnage sur une carte.
 * créé le 22/03/2025 par Jean-Baptiste AILLET
 * modifié le 26/03/2025 par Jean-Baptiste AILLET : Typage
 *********************************************************************************/
@@ -18,13 +18,12 @@ class Map
 	private const array AUTHORIZED_VALUES = array(' ','#');
 
 	/*********************************************************************************
-	* nom : go
-	* descriptif : Fonction appelée pour lancer le déroulement des déplacements
+	* nom : constructeur
+	* descriptif : Fonction appelée pour créer la carte
 	* paramètres :
-	*	$arr_initialPosition : position initiale du personnage
-	*	$str_movements : liste des déplacements
+	*	$str_path: chemin d'accès au fichier
+	*	$str_filename : nom du fichier
 	* retour :
-	*	position abscisse et ordonnée dans un tableau
 	* créée le 22/03/2025 par Jean-Baptiste AILLET
 	* modifications :
 	*********************************************************************************/
@@ -62,7 +61,7 @@ class Map
 		foreach ($arr_lines as $str_line) {
 			$arr_line = str_split($str_line);
 			if (!empty(array_diff(array_unique($arr_line),self::AUTHORIZED_VALUES)))
-				throw new Exception("La carte ne peut contenir que des espaces et des caratères '#'.");
+				throw new Exception("La carte ne peut contenir que des espaces et des caractères '#'.");
 			$this->arr_positions[] = $arr_line;
 		}
 	}
@@ -71,8 +70,8 @@ class Map
 	* nom : getPosition
 	* descriptif : Fonction appelée pour récupérer la valeur d'une position
 	* paramètres :
-	*	$int_x : position initiale du personnage
-	*	$int_y : liste des déplacements
+	*	$int_x : abscisse
+	*	$int_y : ordonnée
 	* retour :
 	*	valeur d'une position (espace et #)
 	* créée le 22/03/2025 par Jean-Baptiste AILLET
@@ -84,7 +83,7 @@ class Map
 		if ($int_y>array_key_last($this->arr_positions))
 			throw new Exception("L'ordonnée $int_y est supérieure au nombre de lignes de la carte.");
 		if ($int_x>array_key_last($this->arr_positions[$int_y]))
-			throw new Exception("L'abcisse $int_x est supérieur au nombre d'élément de la ligne $int_y.");
+			throw new Exception("L'abcisse $int_x est supérieur au nombre d'éléments de la ligne $int_y.");
 		return $this->arr_positions[$int_y][$int_x];
 	}
 }
